@@ -156,6 +156,7 @@ void Reader::checkColumns(int i, int j, int n) {
 }
 
 void Reader::collectorsResize(int n) {
+  Rcpp::Rcerr << "Resizing collectors to: " << n << std::endl;
   for (size_t j = 0; j < collectors_.size(); ++j) {
     collectors_[j]->resize(n);
   }
