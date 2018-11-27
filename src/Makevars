@@ -1,5 +1,5 @@
 PKG_CXXFLAGS = -I. -Ircon
-PKG_LIBS = -L. -lrcon -L../inst/rcon -Wl,-rpath,'$$ORIGIN/../rcon'
+PKG_LIBS = -L. -lrcon -L../inst/rcon -Wl,-rpath,'$$ORIGIN'
 
 all: $(SHLIB)
 
