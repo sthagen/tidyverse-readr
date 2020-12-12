@@ -1,7 +1,5 @@
-context("read_csv")
-
 test_that("read_csv col imputation, col_name detection and NA detection works", {
-  test_data <- read_csv("basic-df.csv", col_types = NULL, col_names = TRUE, progress = FALSE)
+  test_data <- read_csv(test_path("basic-df.csv"), col_types = list(), col_names = TRUE, progress = FALSE)
   expect_equal(unname(unlist(lapply(test_data, class))),
     c("logical", "numeric", "numeric", "character"))
   expect_equal(names(test_data), c("a", "b", "c", "d"))
@@ -67,6 +65,8 @@ test_that("can read more than 100 columns", {
 })
 
 test_that("encoding affects text and headers", {
+  skip_on_os("solaris")
+
   x <- read_csv("enc-iso-8859-1.txt", locale = locale(encoding = "ISO-8859-1"), progress = FALSE)
   expect_identical(names(x), "fran\u00e7ais")
   expect_identical(x[[1]], "\u00e9l\u00e8ve")
@@ -157,7 +157,7 @@ test_that("too few or extra col_types generates warnings", {
 test_that("decimal mark automatically set to ,", {
   expect_message(
     x <- read_csv2("x\n1,23", progress = FALSE),
-    if (default_locale()$decimal_mark == ".") "decimal .*grouping .*mark" else NA)
+    if (default_locale()$decimal_mark == ".") "decimal .*grouping mark" else NA)
   expect_equal(x[[1]], 1.23)
 })
 
@@ -182,6 +182,12 @@ test_that("empty file with col_names and col_types creates correct columns", {
   expect_equal(dim(x), c(0, 2))
   expect_equal(class(x$a), "integer")
   expect_equal(class(x$b), "integer")
+})
+
+test_that("empty file returns an empty tibble", {
+  file.create("foo.csv")
+  expect_equal(read_csv("foo.csv"), tibble::tibble())
+  file.remove("foo.csv")
 })
 
 

@@ -1,5 +1,3 @@
-context("Parsing, datetime")
-
 test_that("utctime is equivalent to R conversion", {
   year <- seq(0, 4000)
   mon <- rep(3L, length(year))
@@ -196,6 +194,7 @@ test_that("na affects both guessing and parsing (#1041)", {
 
 test_that("text re-encoded before strings are parsed", {
   skip_on_cran() # need to figure out why this fails
+  skip_on_os("solaris")
 
   x <- "1 f\u00e9vrier 2010"
   y <- iconv(x, from = "UTF-8", to = "ISO-8859-1")
@@ -263,4 +262,8 @@ test_that("must have either two - or none", {
   expect_equal(guess_parser("2000-1010"), "character")
   expect_equal(guess_parser("200010-10"), "character")
   expect_equal(guess_parser("20001010"), "double")
+})
+
+test_that("Invalid formats error", {
+  expect_error(parse_date("2020-11-17", "%%Y-%m-%d"), "Unsupported format %%Y-%m-%d")
 })

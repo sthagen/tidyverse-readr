@@ -1,5 +1,3 @@
-context("write_delim")
-
 test_that("strings are only quoted if needed", {
   x <- c("a", ',')
 
@@ -153,7 +151,7 @@ test_that("write_csv2 and format_csv2 writes ; sep and , decimal mark", {
   on.exit(unlink(filename))
   write_csv2(df, filename)
 
-  expect_equivalent(df, suppressMessages(read_csv2(filename)))
+  expect_equal(c(df), suppressMessages(c(read_csv2(filename))))
 })
 
 test_that("write_csv2 and format_csv2 writes NA appropriately", {
@@ -164,6 +162,20 @@ test_that("write_csv2 and format_csv2 writes NA appropriately", {
 test_that("write_csv2 and format_csv2 produce no leading whitespace for numbers", {
   df <- tibble::tibble(x = c(6, 66))
   expect_equal(format_csv2(df), "x\n6\n66\n")
+})
+
+test_that("write_csv2 and format_csv2 use same precision as write.csv2 (#1087)", {
+  tmp <- tempfile()
+  on.exit(unlink(tmp), add = TRUE)
+
+  df <- tibble::tibble(x = c(1234567.1), y = 5)
+
+  con <- file(tmp, "wb")
+  write.csv2(df, con, row.names = FALSE, quote = FALSE, eol = "\n")
+  close(con)
+
+  expect_equal(format_csv2(df), "x;y\n1234567,1;5\n")
+  expect_equal(format_csv2(df), read_file(tmp))
 })
 
 test_that("Can change the escape behavior for quotes", {
@@ -183,9 +195,16 @@ test_that("hms NAs are written without padding (#930)", {
   expect_equal(format_tsv(df), "x\nNA\n00:00:34.234\n")
 })
 
+test_that("Show column name in error message when writing list column (#938)", {
+  df <- data.frame(x = LETTERS[1:4],
+                   y = I(list(1, "foo", 2:9, iris)))
+  expect_error(write_csv(df, "test_list_col_name.csv"),
+               "Don't know how to handle vector of type list in column 'y'.")
+})
+
 test_that("More helpful error when trying to write out data frames with list columns (#938)", {
   df <- tibble::tibble(id = seq(1), list = list(1))
-  expect_error(write_csv(x = df, path = tempfile()), "Flat files can't store the list column")
+  expect_error(write_csv(x = df, file = tempfile()), "Flat files can't store the list column")
 })
 
 

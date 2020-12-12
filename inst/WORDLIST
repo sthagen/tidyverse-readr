@@ -17,12 +17,15 @@ Cheng
 cloneable
 coloured
 Colouring
+cli
+cpp
 csv
 datetimes
 ddddf
 deduplicated
 delim
 dplyr
+durations
 Eddelbuettel
 finalised
 Florian
@@ -73,6 +76,7 @@ recognising
 recongise
 reinitialization
 reprexes
+Rcpp
 Rds
 rmarkdown
 serialise
