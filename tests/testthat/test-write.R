@@ -195,18 +195,27 @@ test_that("hms NAs are written without padding (#930)", {
   expect_equal(format_tsv(df), "x\nNA\n00:00:34.234\n")
 })
 
-test_that("Show column name in error message when writing list column (#938)", {
-  df <- data.frame(x = LETTERS[1:4],
-                   y = I(list(1, "foo", 2:9, iris)))
-  expect_error(write_csv(df, "test_list_col_name.csv"),
-               "Don't know how to handle vector of type list in column 'y'.")
+test_that("Error when writing list columns or matrix columns", {
+  df <- data.frame(x = LETTERS[1:4], y = I(list(1, "foo", 2:9, iris)), z = I(matrix(1:16, nrow = 4)))
+  expect_error(write_csv(df, tempfile()),
+               "`x` must not contain list or matrix columns")
+
+  df2 <- data.frame(x = LETTERS[1:4], y = I(matrix(1:40, nrow = 4)))
+  expect_error(write_csv(df2, tempfile()),
+               "`x` must not contain list or matrix columns")
 })
 
-test_that("More helpful error when trying to write out data frames with list columns (#938)", {
-  df <- tibble::tibble(id = seq(1), list = list(1))
-  expect_error(write_csv(x = df, file = tempfile()), "Flat files can't store the list column")
-})
+test_that("duplicate columns data is duplicated (#1169)", {
+  df <- tibble::tibble(x = 1, x2 = 2)
+  names(df) <- c("x", "x")
 
+  f <- tempfile()
+  on.exit(unlink(f))
+
+  write_csv(df, f)
+
+  expect_equal(readLines(f), c("x,x", "1,2"))
+})
 
 test_that("write_ family of functions return input data frame without changes", {
   tmp <- tempfile()

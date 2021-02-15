@@ -29,7 +29,7 @@
 #'
 #' write_lines(airquality$Ozone, tmp, na = "-1")
 #' read_lines(tmp)
-read_lines <- function(file, skip = 0, skip_empty_rows = FALSE, n_max = -1L,
+read_lines <- function(file, skip = 0, skip_empty_rows = FALSE, n_max = -1,
                        locale = default_locale(),
                        na = character(),
                        progress = show_progress()) {
