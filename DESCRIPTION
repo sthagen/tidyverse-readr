@@ -1,6 +1,6 @@
 Package: readr
 Title: Read Rectangular Text Data
-Version: 1.4.0.9000
+Version: 2.0.0
 Authors@R: 
     c(person(given = "Hadley",
              family = "Wickham",
@@ -9,15 +9,15 @@ Authors@R:
       person(given = "Jim",
              family = "Hester",
              role = c("aut", "cre"),
-             email = "james.hester@rstudio.com"),
+             email = "jim.hester@rstudio.com"),
       person(given = "Romain",
              family = "Francois",
              role = "ctb"),
-      person(given = "R Core Team",
-             role = "ctb",
-             comment = "Date time code adapted from R"),
       person(given = "RStudio",
              role = c("cph", "fnd")),
+      person(given = "https://github.com/mandreyel/",
+             role = "cph",
+             comment = "mio library"),
       person(given = "Jukka",
              family = "Jylänki",
              role = c("ctb", "cph"),
@@ -30,7 +30,7 @@ Description: The goal of 'readr' is to provide a fast and
     friendly way to read rectangular data (like 'csv', 'tsv', and 'fwf').
     It is designed to flexibly parse many types of data found in the wild,
     while still cleanly failing when data unexpectedly changes.
-License: GPL (>= 2) | file LICENSE
+License: MIT + file LICENSE
 URL: https://readr.tidyverse.org,
     https://github.com/tidyverse/readr
 BugReports: https://github.com/tidyverse/readr/issues
@@ -45,6 +45,7 @@ Imports:
     rlang,
     R6,
     tibble,
+    vroom (>= 1.5.2),
     utils,
     lifecycle (>= 0.2.0)
 Suggests:
@@ -56,14 +57,17 @@ Suggests:
     spelling,
     stringi,
     testthat,
+    tzdb (>= 0.1.1),
+    withr,
     xml2
 LinkingTo: 
-    BH,
-    cpp11
+    cpp11,
+    tzdb (>= 0.1.1)
 VignetteBuilder: 
     knitr
 Config/Needs/website: 
   pkgdown,
+  tidyverse,
   tidyverse/tidytemplate
 Config/testthat/edition: 3
 Config/testthat/parallel: false
