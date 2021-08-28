@@ -46,9 +46,9 @@ be automatically uncompressed. Files starting with \verb{http://},
 downloaded. Remote gz files can also be automatically downloaded and
 decompressed.
 
-Literal data is most useful for examples and tests. It must contain at
-least one new line to be recognised as data (instead of a path) or be a
-vector of greater than length 1.
+Literal data is most useful for examples and tests. To be recognised as a
+path, it must be wrapped with \code{I()}, be a string containing at least one
+new line, or be a vector containing at least one string with a new line.
 
 Using a value of \code{\link[=clipboard]{clipboard()}} will read from the system clipboard.}
 
@@ -73,12 +73,15 @@ option to \code{character()} to indicate no missing values.}
 \item{lazy}{Read values lazily? By default the file is initially only
 indexed and the values are read lazily when accessed. Lazy reading is
 useful interactively, particularly if you are only interested in a subset
-of the full dataset. Note, lazy reading on windows will lock the file
-until all the data has been read from it, if you run into this issue set
-\code{lazy = FALSE}.}
+of the full dataset. \emph{Note}, if you later write to the same file you read
+from you need to set \code{lazy = FALSE}. On Windows the file will be locked
+and on other systems the memory map will become invalid.}
 
 \item{num_threads}{The number of processing threads to use for initial
-parsing and lazy reading of data.}
+parsing and lazy reading of data. If your data contains newlines within
+fields the parser should automatically detect this and fall back to using
+one thread only. However if you know your file has newlines within quoted
+fields it is safest to set \code{num_threads = 1} explicitly.}
 
 \item{progress}{Display a progress bar? By default it will only display
 in an interactive session and not while knitting a document. The automatic
@@ -95,7 +98,7 @@ systems like macOS and linux. For native windows (CRLF) separators use
 will append to existing file. In both cases, if the file does not exist a new
 file is created.}
 
-\item{path}{\Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}}
+\item{path}{\Sexpr[results=rd, stage=render]{lifecycle::badge("deprecated")}, use the \code{file} argument instead.}
 }
 \value{
 \code{read_lines()}: A character vector with one element for each line.

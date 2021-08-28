@@ -1,6 +1,6 @@
 Package: readr
 Title: Read Rectangular Text Data
-Version: 2.0.0.9000
+Version: 2.0.1.9000
 Authors@R: 
     c(person(given = "Hadley",
              family = "Wickham",
@@ -45,7 +45,7 @@ Imports:
     rlang,
     R6,
     tibble,
-    vroom (>= 1.5.2),
+    vroom (>= 1.5.4),
     utils,
     lifecycle (>= 0.2.0)
 Suggests:
@@ -58,6 +58,7 @@ Suggests:
     stringi,
     testthat,
     tzdb (>= 0.1.1),
+    waldo,
     withr,
     xml2
 LinkingTo: 

@@ -1,5 +1,18 @@
 # readr (development version)
 
+# readr 2.0.1
+
+* `write_rds()` gains a `text=` argument, to control using a text based object representation, like the `ascii=` argument in `saveRDS()` (#1270)
+
+* `options(readr.show_col_types = FALSE)` now works as intended (#1250)
+
+* `read_delim_chunked()` now again correctly respects the `chunk_size` parameter (#1248)
+
+* `type_convert()` gains a `guess_integer` argument, passed to `guess_parser()` (@jmbarbone, #1264)
+* `read_tsv()` now correctly passes the `quote` and `na` arguments to `vroom::vroom()` (#1254, #1255)
+
+* Avoid spurious byte compilation errors due to the programatically generated `spec_*()` functions.
+
 # readr 2.0.0
 
 ## second edition changes
