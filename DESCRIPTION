@@ -1,6 +1,6 @@
 Package: readr
 Title: Read Rectangular Text Data
-Version: 2.1.0.9000
+Version: 2.1.1.9000
 Authors@R: 
     c(person(given = "Hadley",
              family = "Wickham",
@@ -8,11 +8,15 @@ Authors@R:
              email = "hadley@rstudio.com"),
       person(given = "Jim",
              family = "Hester",
-             role = c("aut", "cre"),
-             email = "jim.hester@rstudio.com"),
+             role = "aut"),
       person(given = "Romain",
              family = "Francois",
              role = "ctb"),
+      person(given = "Jennifer",
+             family = "Bryan",
+             role = c("aut", "cre"),
+             email = "jenny@rstudio.com",
+             comment = c(ORCID = "0000-0002-6983-2759")),
       person(given = "RStudio",
              role = c("cph", "fnd")),
       person(given = "https://github.com/mandreyel/",
@@ -49,9 +53,9 @@ Imports:
     utils,
     lifecycle (>= 0.2.0)
 Suggests:
+    datasets,
     covr,
     curl,
-    dplyr,
     knitr,
     rmarkdown,
     spelling,
