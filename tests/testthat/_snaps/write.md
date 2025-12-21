@@ -1,11 +1,3 @@
-# Can change the escape behavior for quotes
-
-    Code
-      format_delim(df, "\t", escape = "invalid")
-    Condition
-      Error in `match.arg()`:
-      ! 'arg' should be one of "double", "backslash", "none"
-
 # Error when writing list columns or matrix columns
 
     Code
