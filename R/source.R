@@ -58,7 +58,7 @@ datasource <- function(
   } else if (is.raw(file)) {
     datasource_raw(file, skip, skip_empty_rows, comment, skip_quote)
   } else if (is.character(file)) {
-    if (length(file) > 1) {
+    if (length(file) > 1 || inherits(file, "AsIs")) {
       datasource_string(
         paste(file, collapse = "\n"),
         skip,
@@ -321,6 +321,10 @@ empty_file <- function(x) {
   is.character(x) &&
     file.exists(x) &&
     file.info(x, extra_cols = FALSE)$size == 0
+}
+
+empty_raw <- function(x) {
+  is.raw(x) && length(x) == 0
 }
 
 #' Returns values from the clipboard

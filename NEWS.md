@@ -1,35 +1,22 @@
 # readr (development version)
 
+# readr 2.2.0
+
+This release advances many deprecations.
+
+* `melt_csv()`, `melt_csv2()`, `melt_delim()`, `melt_tsv()`, `melt_fwf()`, `melt_table()`, `melt_table2()`, and all `melt_*_chunked()` variants have been removed from readr. These functions were deprecated in readr 2.0.0  (2021-07-20). See the meltr package (https://github.com/r-lib/meltr).
+
+* `read_table2()` has been removed from readr. This function was deprecated in readr 2.0.0 (2021-07-20) in favor of `read_table()`. Use `read_table()` instead.
+
 * `read_csv()`, `read_csv2()`, `read_tsv()`, `read_delim()`, and `read_fwf()` now emit a deprecation warning when literal data is passed without wrapping it in `I()`. For example, usage like `read_csv(I("x,y\n1,2"))` is preferred over `read_csv("x,y\n1,2")` (#1611).
 
-* `read_table2()` has been removed from readr. This function was deprecated in
-  readr 2.0.0 (2021-07-20) in favor of `read_table()`. Use `read_table()`
-  instead.
+* The `quote_escape` parameter has been removed from `write_delim()`, `write_csv()`, `write_csv2()`, `write_excel_csv()`, `write_excel_csv2()`, `write_tsv()`, `format_delim()`, `format_csv()`, `format_csv2()`, and `format_tsv()`. This parameter was deprecated in readr 2.0.0 (2021-07-20) in favor of the `escape` parameter. Use `escape` instead.
 
-* The `quote_escape` parameter has been removed from `write_delim()`,
-  `write_csv()`, `write_csv2()`, `write_excel_csv()`, `write_excel_csv2()`,
-  `write_tsv()`, `format_delim()`, `format_csv()`, `format_csv2()`, and
-  `format_tsv()`. This parameter was deprecated in readr 2.0.0 (2021-07-20)
-  in favor of the `escape` parameter. Use `escape` instead.
+* The `path` parameter has been removed from `write_delim()`, `write_csv()`, `write_csv2()`, `write_excel_csv()`, `write_excel_csv2()`, `write_tsv()`, `write_lines()`, `write_file()`, and `write_rds()`. This parameter was deprecated in readr 1.4.0 (2020-01-31) in favor of the `file` parameter. Use `file` instead.
 
-* The `path` parameter has been removed from `write_delim()`, `write_csv()`,
-  `write_csv2()`, `write_excel_csv()`, `write_excel_csv2()`, `write_tsv()`,
-  `write_lines()`, `write_file()`, and `write_rds()`. This parameter was
-  deprecated in readr 1.4.0 (2020-01-31) in favor of the `file` parameter.
-  Use `file` instead.
+* The `skip_empty_rows` argument of `fwf_empty()` now throws an error if used in edition 2. This argument was deprecated in readr 2.0.0 (2021-07-20).
 
-* `melt_csv()`, `melt_csv2()`, `melt_delim()`, `melt_tsv()`, `melt_fwf()`,
-  `melt_table()`, `melt_table2()`, and all `melt_*_chunked()` variants have
-  been removed from readr. These functions were deprecated in readr 2.0.0 (2021-07-20) and
-  are now available in the meltr package
-  (https://github.com/r-lib/meltr).
-
-* The `skip_empty_rows` argument of `fwf_empty()` now throws an error if used in
-  edition 2. This argument was deprecated in readr 2.0.0 (2021-07-20).
-
-* The `quoted_na` argument now throws an error if used in edition 2 with
-  `read_delim()`, `read_csv()`, `read_csv2()`, or `read_tsv()`. This usage was
-  first deprecated in readr 2.0.0 (2021-07-20).
+* The `quoted_na` argument now throws an error if used in edition 2 with `read_delim()`, `read_csv()`, `read_csv2()`, or `read_tsv()`. This usage was first deprecated in readr 2.0.0 (2021-07-20).
 
 # readr 2.1.6
 
@@ -107,7 +94,7 @@
 
 ## second edition changes
 
-readr 2.0.0 is a major release of readr and introduces a new second edition parsing and writing engine implemented via the [vroom](https://vroom.r-lib.org/) package.
+readr 2.0.0 is a major release of readr and introduces a new second edition parsing and writing engine implemented via the [vroom](https://vroom.tidyverse.org/) package.
 
 This engine takes advantage of lazy reading, multi-threading and performance characteristics of modern SSD drives to significantly improve the performance of reading and writing compared to the first edition engine.
 
